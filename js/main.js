@@ -1,0 +1,9 @@
+$(".tasks").DataTable({});
+$("#add").click(function(){
+    $("#new").show(500);
+    $("#add").hide(500);
+});
+$("#close").click(function(){
+    $("#new").hide(500);
+    $("#add").show(500);
+});
