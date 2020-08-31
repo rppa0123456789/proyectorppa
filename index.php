@@ -3,9 +3,10 @@
 <?php include('includes/header.php'); ?>
 
 <main class="container p-4">
+  <h2>My Tasks</h2>
   <div class="row">
     <div class="col-md-4">
-      <!-- MESSAGES -->
+      <!-- TASKS MESSAGES -->
 
       <?php if (isset($_SESSION['message'])) { ?>
       <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
@@ -34,6 +35,7 @@
       </div>
     </div>
     <div class="col-md-8">
+    <h3>Task Pending</h3>
       <table class="table table-bordered tasks">
         <thead>
           <tr>
@@ -70,6 +72,7 @@
         </tbody>
       </table>
       <hr>
+      <h3>Task Performed</h3>
       <table class="table table-bordered tasks">
         <thead>
           <tr>
@@ -101,6 +104,71 @@
                 <i class="fas fa-times-circle"></i>
               </a>
             </td>
+          </tr>
+          <?php } ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr>
+  <h2>My Notes  </h2>
+  <div class="row">
+    <div class="col-md-4">
+      <!-- NOTES MESSAGES -->
+
+      <?php if (isset($_SESSION['message1'])) { ?>
+      <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
+        <?= $_SESSION['message1']?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <?php session_unset(); } ?>
+
+      <!-- ADD NOTES FORM -->
+      <div>
+        <input id="add1" type="button" name="add_new_note" class="btn btn-success btn-block" value="Add New Note">
+      </div>
+      <div id="new1" class="card card-body" style="display: none">
+        <form action="save_note.php" method="POST">
+          <div class="form-group">
+            <input type="text" name="title" class="form-control" placeholder="Note Title" autofocus required>
+          </div>
+          <div class="form-group">
+            <textarea name="description" rows="2" class="form-control" placeholder="Note Description" required></textarea>
+          </div>
+          <input type="submit" name="save_note" class="btn btn-success btn-block" value="Save Note">
+          <input id="close1" type="button" name="close" class="btn btn-danger btn-block" value="Close">
+        </form>
+      </div>
+    </div>
+    <div class="col-md-8">
+      <table class="table table-bordered notes">
+      <h3>Notes</h3>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <?php
+          $query = "SELECT * FROM notes";
+          $result_notes = mysqli_query($conn, $query);    
+
+          while($row = mysqli_fetch_assoc($result_notes)) { ?>
+          <tr>
+            <td><?php echo $row['title']; ?></td>
+            <td><?php echo $row['description']; ?></td>
+            <td>
+              <a href="edit_note.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
+                <i class="fas fa-marker"></i>
+              </a>
+              <a href="delete_note.php?id=<?php echo $row['id']?>" class="btn btn-danger">
+                <i class="far fa-trash-alt"></i>
+              </a>
           </tr>
           <?php } ?>
         </tbody>

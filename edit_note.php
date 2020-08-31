@@ -5,7 +5,7 @@ $description= '';
 
 if  (isset($_GET['id'])) {
   $id = $_GET['id'];
-  $query = "SELECT * FROM task WHERE id=$id";
+  $query = "SELECT * FROM notes WHERE id=$id";
   $result = mysqli_query($conn, $query);
   if (mysqli_num_rows($result) == 1) {
     $row = mysqli_fetch_array($result);
@@ -19,9 +19,9 @@ if (isset($_POST['update'])) {
   $title= $_POST['title'];
   $description = $_POST['description'];
 
-  $query = "UPDATE task set title = '$title', description = '$description' WHERE id=$id";
+  $query = "UPDATE notes set title = '$title', description = '$description' WHERE id=$id";
   mysqli_query($conn, $query);
-  $_SESSION['message'] = 'Task Updated Successfully';
+  $_SESSION['message1'] = 'Note Updated Successfully';
   $_SESSION['message_type'] = 'warning';
   header('Location: index.php');
 }
@@ -32,7 +32,7 @@ if (isset($_POST['update'])) {
   <div class="row">
     <div class="col-md-4 mx-auto">
       <div class="card card-body">
-      <form action="edit_task.php?id=<?php echo $_GET['id']; ?>" method="POST">
+      <form action="edit_note.php?id=<?php echo $_GET['id']; ?>" method="POST">
         <div class="form-group">
           <input name="title" type="text" class="form-control" value="<?php echo $title; ?>" placeholder="Update Title">
         </div>
