@@ -12,7 +12,7 @@ if(isset($_GET['id'])) {
 
   $_SESSION['message'] = 'Task Successfully Performed';
   $_SESSION['message_type'] = 'success';
-  header('Location: index.php');
+  header('Location: main.php');
 }
 
 ?>

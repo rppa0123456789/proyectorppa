@@ -1,180 +1,100 @@
-<?php include("db.php"); ?>
+<?php 
+  session_start();
 
-<?php include('includes/header.php'); ?>
+  if (isset($_SESSION['user'])) {
+    header('location: main.php');
+  }
+  
+  include("db.php");
+  include('includes/header.php');
+?>
 
-<main class="container p-4">
-  <h2>My Tasks</h2>
-  <div class="row">
-    <div class="col-md-4">
-      <!-- TASKS MESSAGES -->
-
-      <?php if (isset($_SESSION['message'])) { ?>
-      <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
-        <?= $_SESSION['message']?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <?php session_unset(); } ?>
-
-      <!-- ADD TASK FORM -->
-      <div>
-        <input id="add" type="button" name="add_new_task" class="btn btn-success btn-block" value="Add New Task">
-      </div>
-      <div id="new" class="card card-body" style="display: none">
-        <form action="save_task.php" method="POST">
-          <div class="form-group">
-            <input type="text" name="title" class="form-control" placeholder="Task Title" autofocus required>
-          </div>
-          <div class="form-group">
-            <textarea name="description" rows="2" class="form-control" placeholder="Task Description" required></textarea>
-          </div>
-          <input type="submit" name="save_task" class="btn btn-success btn-block" value="Save Task">
-          <input id="close" type="button" name="close" class="btn btn-danger btn-block" value="Close">
-        </form>
-      </div>
+<div class="container p-4">
+  <div class="container container-md inicio-sesion" id="logu">
+    <?php if (isset($_SESSION['message3'])) { ?>
+    <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
+      <?= $_SESSION['message3']?>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
-    <div class="col-md-8">
-    <h3>Task Pending</h3>
-      <table class="table table-bordered tasks">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
+    <?php session_unset(); } ?>
 
-          <?php
-          $query = "SELECT * FROM task WHERE performed = '0' ";
-          $result_tasks = mysqli_query($conn, $query);    
+    <?php if (isset($_SESSION['message4'])) { ?>
+    <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
+      <?= $_SESSION['message4']?>
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <?php session_unset(); } ?>
 
-          while($row = mysqli_fetch_assoc($result_tasks)) { ?>
-          <tr>
-            <td><?php echo $row['title']; ?></td>
-            <td><?php echo $row['description']; ?></td>
-            <td><?php echo $row['created_at']; ?></td>
-            <td>
-              <a href="edit_task.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
-                <i class="fas fa-marker"></i>
-              </a>
-              <a href="delete_task.php?id=<?php echo $row['id']?>" class="btn btn-danger">
-                <i class="far fa-trash-alt"></i>
-              </a>
-              <a href="task_performed.php?id=<?php echo $row['id']?>" class="btn btn-success">
-                <i class="fas fa-check-circle"></i>
-              </a>
-            </td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
-      <hr>
-      <h3>Task Performed</h3>
-      <table class="table table-bordered tasks">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created At</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+          <div class="card">
+              <div class="card-header text-center">
+                  <h2>Proyecto UneWeb Rodrigo Padilla</h2>
+              </div>
+              
+              <div class="card-body">
+                  <form action="iniciar.php" method="post" id="login">
+                    <legend>Inicio sesión</legend>
+                    
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="user" id="user" placeholder="User">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" name="password" id="password" placeholder="Password">
+                    </div>
+                    
+                    <button type="submit" id="iniciar_sesion" name="iniciar_sesion" class="btn btn-primary">Iniciar sesión</button>
 
-          <?php
-          $query = "SELECT * FROM task WHERE performed = '1' ";
-          $result_tasks = mysqli_query($conn, $query);    
-
-          while($row = mysqli_fetch_assoc($result_tasks)) { ?>
-          <tr>
-            <td><?php echo $row['title']; ?></td>
-            <td><?php echo $row['description']; ?></td>
-            <td><?php echo $row['created_at']; ?></td>
-            <td>
-              <a href="edit_task.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
-                <i class="fas fa-marker"></i>
-              </a>
-              <a href="delete_task.php?id=<?php echo $row['id']?>" class="btn btn-danger">
-                <i class="far fa-trash-alt"></i>
-              </a>
-              <a href="task_pending.php?id=<?php echo $row['id']?>" class="btn btn-danger">
-                <i class="fas fa-times-circle"></i>
-              </a>
-            </td>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
+                    <input id="reg" type="button" name="registro" class="btn btn-primary float-right" value="Registro">
+                  </form>
+              </div>
+          </div>
+          <div role="alert" id="msg"></div>
+        </div>
     </div>
   </div>
-  <hr>
-  <h2>My Notes  </h2>
-  <div class="row">
-    <div class="col-md-4">
-      <!-- NOTES MESSAGES -->
 
-      <?php if (isset($_SESSION['message1'])) { ?>
-      <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
-        <?= $_SESSION['message1']?>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <?php session_unset(); } ?>
+  <div class="container container-md registro" id="newu" style="display: none">
+    <div class="row justify-content-md-center">
 
-      <!-- ADD NOTES FORM -->
-      <div>
-        <input id="add1" type="button" name="add_new_note" class="btn btn-success btn-block" value="Add New Note">
-      </div>
-      <div id="new1" class="card card-body" style="display: none">
-        <form action="save_note.php" method="POST">
-          <div class="form-group">
-            <input type="text" name="title" class="form-control" placeholder="Note Title" autofocus required>
+      <div class="col-md-6">
+
+        <div class="card">
+          <div class="card-header text-center">
+            <h2>Proyecto UneWeb Rodrigo Padilla</h2>
           </div>
-          <div class="form-group">
-            <textarea name="description" rows="2" class="form-control" placeholder="Note Description" required></textarea>
+
+          <div role="alert" id="msg"></div>
+
+          <div class="card-body">
+            <form id="registro" method="post" action="registrar.php">
+              <legend>Registro</legend>
+
+              <div class="form-group">
+                <input type="text" class="form-control" id="user" name="user" placeholder="User">
+              </div>
+              <div class="form-group">
+                <input type="password" class="form-control" id="password" name="password" placeholder="Password">
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" id="email" name="email" placeholder="Email">
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" id="name" name="name" placeholder="Name">
+              </div>
+
+              <input id="registrar" type="submit" name="registrar" class="btn btn-primary" value="Registrar">
+              
+              <input id="log" type="button" name="inicio" class="btn btn-primary float-right" value="Iniciar sesión">
+            </form>
           </div>
-          <input type="submit" name="save_note" class="btn btn-success btn-block" value="Save Note">
-          <input id="close1" type="button" name="close" class="btn btn-danger btn-block" value="Close">
-        </form>
+        </div>
       </div>
-    </div>
-    <div class="col-md-8">
-      <table class="table table-bordered notes">
-      <h3>Notes</h3>
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <?php
-          $query = "SELECT * FROM notes";
-          $result_notes = mysqli_query($conn, $query);    
-
-          while($row = mysqli_fetch_assoc($result_notes)) { ?>
-          <tr>
-            <td><?php echo $row['title']; ?></td>
-            <td><?php echo $row['description']; ?></td>
-            <td>
-              <a href="edit_note.php?id=<?php echo $row['id']?>" class="btn btn-secondary">
-                <i class="fas fa-marker"></i>
-              </a>
-              <a href="delete_note.php?id=<?php echo $row['id']?>" class="btn btn-danger">
-                <i class="far fa-trash-alt"></i>
-              </a>
-          </tr>
-          <?php } ?>
-        </tbody>
-      </table>
     </div>
   </div>
-</main>
-
+</div>
 <?php include('includes/footer.php'); ?>
