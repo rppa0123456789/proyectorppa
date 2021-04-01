@@ -17,9 +17,21 @@
 
                 if($_SESSION['user']){
                     header("location: main.php");
+                }else{
+                    $_SESSION['message'] = 'Usuario o Contraseña Invalidos';
+                    $_SESSION['message_type'] = 'danger';
+                    header('Location: index.php');
                 }
 
+            }else{
+                $_SESSION['message'] = 'Usuario o Contraseña Invalidos';
+                $_SESSION['message_type'] = 'danger';
+                header('Location: index.php');
             }
+        }else{
+            $_SESSION['message'] = 'Usuario o Contraseña Invalidos';
+            $_SESSION['message_type'] = 'danger';
+            header('Location: index.php');
         }
     }
 ?>
