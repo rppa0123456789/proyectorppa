@@ -1,34 +1,16 @@
 <?php 
   session_start();
-
-  if (isset($_SESSION['user'])) {
-    header('location: main.php');
-  }
-  
   include("db.php");
   include('includes/header.php');
 ?>
 
 <div class="container p-4">
+  <?php if (isset($_SESSION['message'])) { ?>
+  <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
+    <?= $_SESSION['message']?>
+  </div>
+  <?php session_unset(); } ?>
   <div class="container container-md inicio-sesion" id="logu">
-    <?php if (isset($_SESSION['message3'])) { ?>
-    <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
-      <?= $_SESSION['message3']?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <?php session_unset(); } ?>
-
-    <?php if (isset($_SESSION['message4'])) { ?>
-    <div class="alert alert-<?= $_SESSION['message_type']?> alert-dismissible fade show" role="alert">
-      <?= $_SESSION['message4']?>
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <?php session_unset(); } ?>
-
     <div class="row justify-content-md-center">
         <div class="col-md-6">
           <div class="card">

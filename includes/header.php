@@ -7,13 +7,13 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/datatables.min.css">
     <link rel="stylesheet" href="css/all.min.css">
-    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/local.css">
   </head>
   <body>
     <header>
       <nav class="navbar navbar-dark bg-dark">
         <div class="container">
-          <a class="navbar-brand" href="index.php">Proyecto UneWeb Rodrigo Padilla</a>
+          <span class="navbar-brand">Proyecto UneWeb Rodrigo Padilla</span>
         </div>
       </nav>
     </header>
