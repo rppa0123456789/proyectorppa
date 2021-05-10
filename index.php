@@ -15,7 +15,7 @@
         <div class="col-md-6">
           <div class="card">
               <div class="card-header text-center">
-                  <h2>Proyecto UneWeb Rodrigo Padilla</h2>
+                  <h2>My Personal To-Do App</h2>
               </div>
               
               <div class="card-body">
@@ -47,7 +47,7 @@
 
         <div class="card">
           <div class="card-header text-center">
-            <h2>Proyecto UneWeb Rodrigo Padilla</h2>
+            <h2>My Personal To-Do App</h2>
           </div>
 
           <div role="alert" id="msg"></div>
